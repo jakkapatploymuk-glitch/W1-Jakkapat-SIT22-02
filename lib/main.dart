@@ -16,8 +16,8 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/' : (context) => const MyHomePage(),
-        '/second' : (context) => const SecondPage()
+        '/': (context) => const MyHomePage(),
+        '/second': (context) => const SecondPage(),
       },
     );
   }
@@ -99,13 +99,76 @@ class MyHomePage extends StatelessWidget {
                       ),
                     ],
                   ),
+                  Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: Color(0xFFE18EBB),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Icon(
+                          Icons.cake,
+                          size: 50,
+                          color: Color(0xFFB3009E),
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [Text("วันเกิด"), Text("7 พฤศจิกายน 2005")],
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: Color(0xFFF6B1A2),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Icon(
+                          Icons.location_pin,
+                          size: 50,
+                          color: Color(0xFFDC5200),
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [Text("ที่อยู่า"), Text("ฉะเชิงเทรา")],
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: Color(0xFF7AA2ED),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Icon(
+                          Icons.school,
+                          size: 50,
+                          color: Color(0xFF0006DC),
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [Text("การศึกษา"), Text("วิทยาลัยเทคโนโลยีภาคตะวันออก(อี.เทค)")],
+                      ),
+                    ],
+                  ),
                   ElevatedButton(
                     onPressed: () => Navigator.pushNamed(context, '/second'),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xFFFF7A00),
                       foregroundColor: Color(0xFFFFFFFF),
                     ),
-                    child: Text("Change Page"),
+                    child: Text("ไปที่หน้า 2"),
                   ),
                 ],
               ),
@@ -122,6 +185,211 @@ class SecondPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Text("SecondPage")));
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: const Text(
+          'MyApp',
+          style: TextStyle(color: Colors.black, fontSize: 14),
+        ),
+        centerTitle: true,
+      ),
+      body: Column(
+        children: [
+          // Profile Header
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              children: [
+                // Profile Picture
+                CircleAvatar(
+                  radius: 42,
+                  backgroundImage: NetworkImage(
+                    'https://e-sis.e-tech.ac.th/etech/Moduls/studentPhotos/photo/2567/6721619167324.jpg',
+                  ),
+                ),
+                const SizedBox(width: 16),
+                // Stats
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      _buildStatColumn('108', 'กำลังติดตาม'),
+                      _buildStatColumn('34.2 K', 'ผู้ติดตาม'),
+                      _buildStatColumn('20', 'ถูกใจเฉลี่ยต่อวัน'),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          // Name and Username
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              children: [
+                const Text(
+                  'Jakkapat2548',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(width: 4),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
+            child: Row(
+              children: [
+                const Icon(Icons.tiktok, size: 16),
+                const SizedBox(width: 4),
+                Text(
+                  'jakkaphatpee2548',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.grey[600],
+                  ),
+                ),
+                const SizedBox(width: 4),
+                const Icon(Icons.arrow_drop_down, size: 16),
+              ],
+            ),
+          ),
+          // Follow Button
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFE62860),
+                      foregroundColor: Colors.white,
+                      elevation: 0,
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ),
+                    child: const Text(
+                      'ติดตาม',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.share_outlined),
+                  style: IconButton.styleFrom(
+                    side: BorderSide(color: Colors.grey[300]!),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          // Photo Grid
+          Expanded(
+            child: GridView.builder(
+              padding: const EdgeInsets.all(2),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 2,
+                mainAxisSpacing: 2,
+                childAspectRatio: 0.75,
+              ),
+              itemCount: 6,
+              itemBuilder: (context, index) {
+                final imageUrls = [
+                  'https://cdn.pixabay.com/photo/2019/11/18/00/38/dog-4633734_1280.jpg',
+                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcBRUZcqmG04M_DZU0rpKdqHrgsTeXx5KVYA&s',
+                  'https://www.novotelbkk.com/wp-content/uploads/sites/62/2016/11/Destination-Temple-of-the-Dawn.jpg',
+                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmaoQC7sp_k03unaETFclRCe6AiolUVHsXoQ&s',
+                  'https://cdn.pixabay.com/photo/2023/07/04/08/31/cats-8105667_960_720.jpg',
+                  'https://i.natgeofe.com/n/0e2905b8-76a1-431e-9bd7-2d9f65b4eb90/DXB720.jpg',
+                ];
+
+                return Container(
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(4),
+                    child: Image.network(
+                      imageUrls[index],
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.error_outline, color: Colors.grey[400]),
+                              const SizedBox(height: 8),
+                              Text(
+                                'Image failed to load',
+                                style: TextStyle(color: Colors.grey[600], fontSize: 12),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return Center(
+                          child: CircularProgressIndicator(
+                            value: loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded /
+                                loadingProgress.expectedTotalBytes!
+                                : null,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStatColumn(String count, String label) {
+    return Column(
+      children: [
+        Text(
+          count,
+          style: const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 12,
+            color: Colors.grey[600],
+          ),
+        ),
+      ],
+    );
   }
 }
