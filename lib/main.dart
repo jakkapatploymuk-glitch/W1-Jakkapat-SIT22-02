@@ -12,7 +12,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        // Use a more modern and consistent color scheme
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
+        useMaterial3: true,
       ),
       initialRoute: '/',
       routes: {
@@ -29,157 +31,206 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('ข้อมูลส่วนตัว'),
+        backgroundColor: Colors.amber,
+      ),
       body: SafeArea(
-        child: Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.amberAccent,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              padding: EdgeInsets.all(20.0),
-              child: Center(
-                child: Column(
-                  children: [
-                    Text(
-                      "ข้อมูลส่วนตัว",
-                      style: TextStyle(
-                        fontSize: 50,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.blue[400],
+        child: SingleChildScrollView( // Added SingleChildScrollView to prevent overflow
+          child: Padding(
+            padding: const EdgeInsets.all(16.0), // Added padding for the entire content
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch, // Stretch columns horizontally
+              children: [
+                // --- ส่วนหัวโปรไฟล์ (Profile Header) ---
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.amber.shade100, // Lighter amber background
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 7,
+                        offset: const Offset(0, 3), // changes position of shadow
                       ),
-                    ),
-                    SizedBox(height: 10),
-                    Container(
-                      padding: EdgeInsets.all(6),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(80),
-                      ),
-                      child: ClipOval(
-                        child: Image.network(
-                          "https://e-sis.e-tech.ac.th/etech/Moduls/studentPhotos/photo/2567/6721619167324.jpg",
-                          width: 150,
-                          height: 150,
-                          fit: BoxFit.cover,
+                    ],
+                  ),
+                  padding: const EdgeInsets.all(20.0),
+                  child: Center(
+                    child: Column(
+                      children: [
+                        Text(
+                          "ข้อมูลส่วนตัว",
+                          style: TextStyle(
+                            fontSize: 40, // Slightly reduced font size for better fit
+                            fontWeight: FontWeight.w700,
+                            color: Colors.blue.shade800, // Darker blue for contrast
+                          ),
                         ),
-                      ),
+                        const SizedBox(height: 20),
+                        // Profile Picture Container
+                        Container(
+                          padding: const EdgeInsets.all(6),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(80),
+                            border: Border.all(color: Colors.blue.shade300, width: 4), // Added border
+                          ),
+                          child: ClipOval(
+                            child: Image.network(
+                              // Using the provided image URL
+                              "https://e-sis.e-tech.ac.th/etech/Moduls/studentPhotos/photo/2567/6721619167324.jpg",
+                              width: 150,
+                              height: 150,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 15),
+                        Text(
+                          "Jakkapat Ploymuk",
+                          style: TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black87,
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        Text(
+                          "jakkapat.ploymuk@e-tech.ac.th",
+                          style: TextStyle(
+                            fontSize: 18, // Reduced email font size
+                            color: Colors.grey.shade700,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 25), // Spacing between profile header and info list
+
+                // --- ส่วนรายการข้อมูลติดต่อ (Contact Info List) ---
+                Column(
+                  children: [
+                    // Phone Row
+                    _buildInfoRow(
+                      icon: Icons.phone,
+                      iconBgColor: const Color(0xFFE0F7FA), // Light Cyan
+                      iconColor: const Color(0xFF00BCD4), // Cyan
+                      label: "เบอร์",
+                      value: "099-420-1084",
+                    ),
+                    const SizedBox(height: 15), // Spacing between rows
+
+                    // Birthday Row
+                    _buildInfoRow(
+                      icon: Icons.cake,
+                      iconBgColor: const Color(0xFFFCE4EC), // Light Pink
+                      iconColor: const Color(0xFFE91E63), // Pink
+                      label: "วันเกิด",
+                      value: "7 พฤศจิกายน 2005",
+                    ),
+                    const SizedBox(height: 15),
+
+                    // Location Row
+                    _buildInfoRow(
+                      icon: Icons.location_pin,
+                      iconBgColor: const Color(0xFFFFF3E0), // Light Orange
+                      iconColor: const Color(0xFFFF9800), // Orange
+                      label: "ที่อยู่",
+                      value: "ฉะเชิงเทรา",
+                    ),
+                    const SizedBox(height: 15),
+
+                    // Education Row
+                    _buildInfoRow(
+                      icon: Icons.school,
+                      iconBgColor: const Color(0xFFE3F2FD), // Light Blue
+                      iconColor: const Color(0xFF2196F3), // Blue
+                      label: "การศึกษา",
+                      value: "วิทยาลัย(อี.เทค)",
                     ),
 
-                    Text("Jakkapat Ploymuk", style: TextStyle(fontSize: 28)),
-                    Text(
-                      "jakkapat.ploymuk@e-tech.ac.th",
-                      style: TextStyle(fontSize: 24),
+                    const SizedBox(height: 30),
+
+                    // Navigation Button
+                    ElevatedButton(
+                      onPressed: () => Navigator.pushNamed(context, '/second'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFFF7A00), // Orange color
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        elevation: 5,
+                      ),
+                      child: const Text(
+                        "ไปที่หน้า 2",
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ],
                 ),
-              ),
+              ],
             ),
-            Container(
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: Color(0xFF5EFF5E),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Icon(
-                          Icons.phone,
-                          size: 50,
-                          color: Color(0xFF00B700),
-                        ),
-                      ),
-                      SizedBox(width: 10),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [Text("เบอร์"), Text("099-420-1084")],
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: Color(0xFFE18EBB),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Icon(
-                          Icons.cake,
-                          size: 50,
-                          color: Color(0xFFB3009E),
-                        ),
-                      ),
-                      SizedBox(width: 10),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [Text("วันเกิด"), Text("7 พฤศจิกายน 2005")],
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: Color(0xFFF6B1A2),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Icon(
-                          Icons.location_pin,
-                          size: 50,
-                          color: Color(0xFFDC5200),
-                        ),
-                      ),
-                      SizedBox(width: 10),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [Text("ที่อยู่"), Text("ฉะเชิงเทรา")],
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: Color(0xFF7AA2ED),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Icon(
-                          Icons.school,
-                          size: 50,
-                          color: Color(0xFF0006DC),
-                        ),
-                      ),
-                      SizedBox(width: 10),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [Text("การศึกษา"), Text("วิทยาลัยเทคโนโลยีภาคตะวันออก(อี.เทค)")],
-                      ),
-                    ],
-                  ),
-                  ElevatedButton(
-                    onPressed: () => Navigator.pushNamed(context, '/second'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFFFF7A00),
-                      foregroundColor: Color(0xFFFFFFFF),
-                    ),
-                    child: Text("ไปที่หน้า 2"),
-                  ),
-                ],
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
   }
+
+  // Helper method to build a consistent information row
+  Widget _buildInfoRow({
+    required IconData icon,
+    required Color iconBgColor,
+    required Color iconColor,
+    required String label,
+    required String value,
+  }) {
+    return Row(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: iconBgColor,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Icon(
+            icon,
+            size: 30, // Reduced icon size slightly
+            color: iconColor,
+          ),
+        ),
+        const SizedBox(width: 15),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.grey.shade600,
+              ),
+            ),
+            Text(
+              value,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                color: Colors.black,
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
 }
 
+// --- SecondPage is kept the same as it seems to be styled as a social media profile ---
 class SecondPage extends StatelessWidget {
   const SecondPage({super.key});
 
@@ -208,7 +259,7 @@ class SecondPage extends StatelessWidget {
             child: Row(
               children: [
                 // Profile Picture
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 42,
                   backgroundImage: NetworkImage(
                     'https://e-sis.e-tech.ac.th/etech/Moduls/studentPhotos/photo/2567/6721619167324.jpg',
@@ -230,18 +281,18 @@ class SecondPage extends StatelessWidget {
             ),
           ),
           // Name and Username
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
             child: Row(
               children: [
-                const Text(
+                Text(
                   'Jakkapat2548',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(width: 4),
+                SizedBox(width: 4),
               ],
             ),
           ),
