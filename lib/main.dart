@@ -11,13 +11,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      // กำหนดธีมสีหลัก
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
+      // กำหนดเส้นทางเริ่มต้นของแอป
       initialRoute: '/',
+      // กำหนดแผนที่เส้นทางสำหรับนำทาง
       routes: {
-        '/': (context) => const MyHomePage(),
-        '/second': (context) => const SecondPage(),
+        '/': (context) => const MyHomePage(), // หน้าจอหลัก
+        '/second': (context) => const SecondPage(), // หน้าจอที่สอง
       },
     );
   }
@@ -29,13 +32,17 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // องค์ประกอบหลักของหน้าจอ
       body: SafeArea(
+        // ทำให้เนื้อหาอยู่ภายในขอบเขตที่ปลอดภัย
         child: Column(
+          // จัดเรียงวิดเจ็ตในแนวตั้ง
           children: [
+            // === ส่วนหัว: ข้อมูลส่วนตัว ===
             Container(
               decoration: BoxDecoration(
-                color: Colors.amberAccent,
-                borderRadius: BorderRadius.circular(20),
+                color: Colors.amberAccent, // สีพื้นหลัง
+                borderRadius: BorderRadius.circular(20), // ขอบโค้งมน
               ),
               padding: EdgeInsets.all(20.0),
               child: Center(
@@ -50,6 +57,7 @@ class MyHomePage extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 10),
+                    // กรอบรูปโปรไฟล์
                     Container(
                       padding: EdgeInsets.all(6),
                       decoration: BoxDecoration(
@@ -57,6 +65,7 @@ class MyHomePage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(80),
                       ),
                       child: ClipOval(
+                        // ตัดรูปให้เป็นวงกลม
                         child: Image.network(
                           "https://e-sis.e-tech.ac.th/etech/Moduls/studentPhotos/photo/2567/6721619167324.jpg",
                           width: 150,
@@ -65,7 +74,6 @@ class MyHomePage extends StatelessWidget {
                         ),
                       ),
                     ),
-
                     Text("Jakkapat Ploymuk", style: TextStyle(fontSize: 28)),
                     Text(
                       "jakkapat.ploymuk@e-tech.ac.th",
@@ -75,9 +83,13 @@ class MyHomePage extends StatelessWidget {
                 ),
               ),
             ),
+            // === ส่วนรายละเอียด: เบอร์, วันเกิด, ที่อยู่, การศึกษา ===
             Container(
+              padding: EdgeInsets.all(16.0), // เพิ่มระยะห่างรอบนอก
               child: Column(
+                // รายละเอียดแต่ละรายการจัดใน Column ย่อย
                 children: [
+                  // รายการที่ 1: เบอร์โทรศัพท์
                   Row(
                     children: [
                       Container(
@@ -95,10 +107,12 @@ class MyHomePage extends StatelessWidget {
                       SizedBox(width: 10),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [Text("เบอร์"), Text("099-420-1084")],
+                        children: [const Text("เบอร์"), const Text("099-420-1084")],
                       ),
                     ],
                   ),
+                  SizedBox(height: 10), // เพิ่มระยะห่างระหว่างรายการ
+                  // รายการที่ 2: วันเกิด
                   Row(
                     children: [
                       Container(
@@ -116,10 +130,12 @@ class MyHomePage extends StatelessWidget {
                       SizedBox(width: 10),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [Text("วันเกิด"), Text("7 พฤศจิกายน 2005")],
+                        children: [const Text("วันเกิด"), const Text("7 พฤศจิกายน 2005")],
                       ),
                     ],
                   ),
+                  SizedBox(height: 10), // เพิ่มระยะห่างระหว่างรายการ
+                  // รายการที่ 3: ที่อยู่
                   Row(
                     children: [
                       Container(
@@ -137,10 +153,12 @@ class MyHomePage extends StatelessWidget {
                       SizedBox(width: 10),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [Text("ที่อยู่า"), Text("ฉะเชิงเทรา")],
+                        children: [const Text("ที่อยู่า"), const Text("ฉะเชิงเทรา")],
                       ),
                     ],
                   ),
+                  SizedBox(height: 10), // เพิ่มระยะห่างระหว่างรายการ
+                  // รายการที่ 4: การศึกษา
                   Row(
                     children: [
                       Container(
@@ -158,17 +176,19 @@ class MyHomePage extends StatelessWidget {
                       SizedBox(width: 10),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [Text("การศึกษา"), Text("วิทยาลัยเทคโนโลยีภาคตะวันออก(อี.เทค)")],
+                        children: [const Text("การศึกษา"), const Text("วิทยาลัยเทคโนโลยีภาคตะวันออก(อี.เทค)")],
                       ),
                     ],
                   ),
+                  SizedBox(height: 20), // เพิ่มระยะห่างก่อนปุ่ม
+                  // ปุ่มนำทางไปหน้า 2
                   ElevatedButton(
-                    onPressed: () => Navigator.pushNamed(context, '/second'),
+                    onPressed: () => Navigator.pushNamed(context, '/second'), // นำทางไป '/second'
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFFFF7A00),
-                      foregroundColor: Color(0xFFFFFFFF),
+                      backgroundColor: const Color(0xFFFF7A00),
+                      foregroundColor: const Color(0xFFFFFFFF),
                     ),
-                    child: Text("ไปที่หน้า 2"),
+                    child: const Text("ไปที่หน้า 2"),
                   ),
                 ],
               ),
@@ -187,12 +207,14 @@ class SecondPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      // AppBar ด้านบน
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
+        // ปุ่มย้อนกลับ
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => Navigator.pop(context), // กลับไปหน้าจอก่อนหน้า
         ),
         title: const Text(
           'MyApp',
@@ -202,20 +224,20 @@ class SecondPage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          // Profile Header
+          // === ส่วนหัวโปรไฟล์และสถิติ ===
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Row(
               children: [
-                // Profile Picture
-                CircleAvatar(
+                // รูปโปรไฟล์
+                const CircleAvatar(
                   radius: 42,
                   backgroundImage: NetworkImage(
                     'https://e-sis.e-tech.ac.th/etech/Moduls/studentPhotos/photo/2567/6721619167324.jpg',
                   ),
                 ),
                 const SizedBox(width: 16),
-                // Stats
+                // สถิติ: กำลังติดตาม, ผู้ติดตาม, ถูกใจ
                 Expanded(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -229,27 +251,28 @@ class SecondPage extends StatelessWidget {
               ],
             ),
           ),
-          // Name and Username
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          // ชื่อและ Username
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
             child: Row(
               children: [
-                const Text(
+                Text(
                   'Jakkapat2548',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(width: 4),
+                SizedBox(width: 4),
               ],
             ),
           ),
+          // ชื่อบัญชีโซเชียลมีเดีย
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
             child: Row(
               children: [
-                const Icon(Icons.tiktok, size: 16),
+                const Icon(Icons.tiktok, size: 16), // จำลองไอคอน
                 const SizedBox(width: 4),
                 Text(
                   'jakkaphatpee2548',
@@ -263,7 +286,7 @@ class SecondPage extends StatelessWidget {
               ],
             ),
           ),
-          // Follow Button
+          // === ปุ่ม 'ติดตาม' และ 'แชร์' ===
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Row(
@@ -272,7 +295,7 @@ class SecondPage extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFE62860),
+                      backgroundColor: const Color(0xFFE62860), // สีปุ่มติดตาม
                       foregroundColor: Colors.white,
                       elevation: 0,
                       padding: const EdgeInsets.symmetric(vertical: 12),
@@ -303,18 +326,20 @@ class SecondPage extends StatelessWidget {
               ],
             ),
           ),
-          // Photo Grid
+          // === ส่วนตารางรูปภาพ (Photo Grid) ===
           Expanded(
+            // ทำให้ GridView กินพื้นที่ที่เหลือทั้งหมด
             child: GridView.builder(
               padding: const EdgeInsets.all(2),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
+                crossAxisCount: 2, // 2 คอลัมน์
                 crossAxisSpacing: 2,
                 mainAxisSpacing: 2,
-                childAspectRatio: 0.75,
+                childAspectRatio: 0.75, // อัตราส่วนความกว้างต่อความสูงของรายการ
               ),
-              itemCount: 6,
+              itemCount: 6, // จำนวนรายการในตาราง
               itemBuilder: (context, index) {
+                // รายการ URL รูปภาพ
                 final imageUrls = [
                   'https://cdn.pixabay.com/photo/2019/11/18/00/38/dog-4633734_1280.jpg',
                   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcBRUZcqmG04M_DZU0rpKdqHrgsTeXx5KVYA&s',
@@ -334,6 +359,7 @@ class SecondPage extends StatelessWidget {
                     child: Image.network(
                       imageUrls[index],
                       fit: BoxFit.cover,
+                      // แสดงผลเมื่อโหลดรูปภาพล้มเหลว
                       errorBuilder: (context, error, stackTrace) {
                         return Center(
                           child: Column(
@@ -349,6 +375,7 @@ class SecondPage extends StatelessWidget {
                           ),
                         );
                       },
+                      // แสดงผลเมื่อกำลังโหลดรูปภาพ
                       loadingBuilder: (context, child, loadingProgress) {
                         if (loadingProgress == null) return child;
                         return Center(
@@ -371,6 +398,7 @@ class SecondPage extends StatelessWidget {
     );
   }
 
+  // วิดเจ็ตตัวช่วยสำหรับสร้างคอลัมน์สถิติ (ใช้ซ้ำได้)
   Widget _buildStatColumn(String count, String label) {
     return Column(
       children: [
