@@ -153,7 +153,7 @@ class MyHomePage extends StatelessWidget {
                       SizedBox(width: 10),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [const Text("ที่อยู่า"), const Text("ฉะเชิงเทรา")],
+                        children: [const Text("ที่อยู่"), const Text("ฉะเชิงเทรา")],
                       ),
                     ],
                   ),
